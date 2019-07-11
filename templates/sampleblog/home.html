@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h2 class="page-header">記事一覧</h2>
+<div class="list-group">
+    {% for article in articles %}
+    <h3>
+        <a class="list-group-item" href="{% url 'sampleblog:article_detail' article.id %}">{{ article.title }}</a>
+    </h3>
+    {% endfor %}
+</div>
+<label>総記事件数: {{ articles.count }}</label><br/>
+<p class="text-info">{{ result }}</p>
+{% endblock %}
