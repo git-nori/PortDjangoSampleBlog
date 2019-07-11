@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>{% block title %}{% endblock %}</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+</head>
+
+<body>
+<nav class="navbar navbar-dark navbar-fixed-top bg-dark">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">SampleBlog</a>
+            <a class="navbar-brand" href="#">新規投稿</a>
+            <a class="navbar-brand" href="#">記事一覧</a>
+            <a class="navbar-brand" href="#">ユーザー一覧</a>
+            <a class="navbar-brand" href="#">管理者用画面</a>
+        </div>
+        <button class="btn btn-link pull-right navbar-brand" type="submit">Logout</button>
+    </div>
+</nav>
+<br/>
+<div class="container">
+    <div class="starter-template">
+        {% block content %}{% endblock %}
+    </div>
+</div>
+</body>
+</html>
