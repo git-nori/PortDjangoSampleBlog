@@ -121,3 +121,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # ディレクトリ構成の変更による追加
+
+AUTH_USER_MODEL = 'sampleblog.CustomUser'  # カスタムUserを使用するよう設定
