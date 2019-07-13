@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}記事編集画面{% endblock %}
+
+{% block header %}記事編集画面{% endblock %}
+
+{% block content %}
+<form action="{% url 'sampleblog:article_edit' article.id %}" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button class="btn btn-primary" type="submit" name="update">Update</button>
+    <button class="btn btn-danger" type="submit" name="delete" onclick="return confirm('本当に削除してもよろしいでしょうか?')">Delete
+    </button>
+</form>
+{% endblock %}
