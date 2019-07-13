@@ -39,3 +39,18 @@ def article_edit(request, pk):
         form = ArticleForm(instance=article)
 
     return render(request, 'sampleblog/article_edit.html', {'article': article, 'form': form})
+
+
+def article_add(request):
+    """記事追加画面"""
+    if request.method == 'POST':
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Create Complete")
+
+            return redirect('sampleblog:home')
+    else:
+        form = ArticleForm()
+
+    return render(request, 'sampleblog/article_add.html', {'form': form})
