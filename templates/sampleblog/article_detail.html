@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}記事詳細画面{% endblock %}
+
+{% block header %}記事詳細画面{% endblock %}
+
+{% block content %}
+<h3>{{ article.title }}</h3>
+<br/>
+
+<p>{{ article.content }}</p>
+<br/><br/>
+
+<p>記事ID: {{article.id}}</p>
+<p>投稿ユーザー: </p>
+<a href="{% url 'sampleblog:article_edit' %}">
+    <button type="submit" class="btn btn-primary" value="edit">edit</button>
+</a>
+<br/><br/>
+{% if result %}
+<div class="alert alert-secondary" role="alert">
+    <strong><label>更新、削除結果: {{ result }}</label></strong>
+</div>
+{% endif %}
+{% endblock %}
