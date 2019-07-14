@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Article
+from .models import Article, CustomUser
 from .forms import ArticleForm
 from django.contrib import messages
 
@@ -54,3 +54,10 @@ def article_add(request):
         form = ArticleForm()
 
     return render(request, 'sampleblog/article_add.html', {'form': form})
+
+
+def user_list(request):
+    """ユーザー一覧画面"""
+    users = CustomUser.objects.all().order_by('id')
+
+    return render(request, 'sampleblog/user_list.html', {'users': users})
