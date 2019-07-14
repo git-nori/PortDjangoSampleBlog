@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}  # (staticタグを使うために)staticを読み込む設定
+
+{% block title %}ユーザー一覧画面{% endblock %}
+
+{% block header %}ユーザー一覧画面{% endblock %}
+
+{% block content %}
+<table class="table table-bordered table-hover">
+    <thead class="thead-light">
+    <tr>
+        <th>userImage</th>
+        <th>id</th>
+        <th>userName</th>
+        <th>gender</th>
+        <th>detail</th>
+    </tr>
+    </thead>
+    {% for user in users %}
+    <tbody>
+    <tr>
+        {% if user.image %}
+        <td><img src="{{ user.image.url }}" alt="" width="50px" height="50px"></td>
+        {% else %}
+        <td><img src="{% static 'sampleblog/images/default.jpeg' %}" width="50px" height="50px"></td>
+        {% endif %}
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{% if user.gender %} men {% else %} women {% endif %}</td>
+        <td><a class="btn btn-primary" href="#">Detail</a></td>
+    </tr>
+    </tbody>
+    {% endfor %}
+</table>
+<p>合計: {{ users.count }}</p>
+{% if messages %}
+{% for result_msg in messages %}
+<div class="alert alert-secondary" role="alert">
+    <strong><label>{{ result_msg }}</label></strong>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}
