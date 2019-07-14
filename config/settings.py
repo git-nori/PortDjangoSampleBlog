@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap4',
     'sampleblog',
+    'django_cleanup'  # レコードの削除、更新時にファイルも削除するよう設定
 ]
 
 MIDDLEWARE = [
@@ -124,5 +125,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # ディレクトリ構成の変更による追加
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL = 'sampleblog.CustomUser'  # カスタムUserを使用するよう設定
