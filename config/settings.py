@@ -119,6 +119,11 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Login, Logout setting
+
+LOGIN_URL = 'sampleblog:login'  # ログイン画面に使用するURL
+LOGIN_REDIRECT_URL = 'sampleblog:home'  # ログイン成功後に遷移するURL
+LOGOUT_REDIRECT_URL = 'sampleblog:login'  # ログアウト後に遷移するURL
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
