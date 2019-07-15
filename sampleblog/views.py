@@ -61,3 +61,11 @@ def user_list(request):
     users = CustomUser.objects.all().order_by('id')
 
     return render(request, 'sampleblog/user_list.html', {'users': users})
+
+
+def user_detail(request, pk):
+    """ユーザー詳細画面"""
+    user = get_object_or_404(CustomUser, pk=pk)
+    articles = user.article_set.all().order_by('-created_at')  # userに紐づいたarticleインスタンスを全て取得
+
+    return render(request, 'sampleblog/user_detail.html', {'user': user, 'articles': articles})
