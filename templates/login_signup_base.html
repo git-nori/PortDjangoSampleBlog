@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+</head>
+<body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="container mt-3">
+            <div class="col-md-6 offset-md-3">
+                <header>
+                    <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-dark rounded shadow-sm">
+                        <div class="lh-100">
+                            <h4 class="mb-0 text-white lh-100">{% block header %}{% endblock %}</h4>
+                        </div>
+                    </div>
+                </header>
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
