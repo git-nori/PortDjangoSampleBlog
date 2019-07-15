@@ -82,9 +82,19 @@ sftp-config.json
 # if you remove the above rule, at least ignore the following:
 
 # User-specific stuff:
- .idea/workspace.xml
- .idea/tasks.xml
- .idea/dictionaries
+.idea/caches/build_file_checksums.ser
+.idea/codeStyles/
+.idea/compiler.xml
+.idea/copyright/profiles_settings.xml
+.idea/dictionaries/
+.idea/libraries/
+.idea/misc.xml
+.idea/modules.xml
+.idea/tasks.xml
+.idea/scopes/scope_settings.xml
+.idea/workspace.xml
+.idea/.name
+*.iml
 
 # Sensitive or high-churn files:
  .idea/dataSources.ids

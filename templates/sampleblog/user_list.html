@@ -27,7 +27,7 @@
         <td>{{ user.id }}</td>
         <td>{{ user.username }}</td>
         <td>{% if user.gender %} men {% else %} women {% endif %}</td>
-        <td><a class="btn btn-primary" href="#">Detail</a></td>
+        <td><a class="btn btn-primary" href="{% url 'sampleblog:user_detail' user.id %}">Detail</a></td>
     </tr>
     </tbody>
     {% endfor %}
