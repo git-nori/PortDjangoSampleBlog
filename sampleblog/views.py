@@ -69,3 +69,10 @@ def user_detail(request, pk):
     articles = user.article_set.all().order_by('-created_at')  # userに紐づいたarticleインスタンスを全て取得
 
     return render(request, 'sampleblog/user_detail.html', {'user': user, 'articles': articles})
+
+
+def user_edit(request, pk):
+    """ユーザー編集画面"""
+
+
+    return render(request, 'sampleblog/user_edit.html')
