@@ -19,8 +19,10 @@
             <a class="navbar-brand" href="{% url 'sampleblog:home' %}">ホーム</a>
             <a class="navbar-brand" href="{% url 'sampleblog:article_add' %}">新規投稿</a>
             <a class="navbar-brand" href="{% url 'sampleblog:user_list' %}">ユーザー一覧</a>
-            <a class="navbar-brand" href="#">管理者用画面</a>
-            <a class="pull-right navbar-brand" href="#">管理者用画面</a>
+            <!--ログインをしているユーザーが管理者権限を持っている場合はリンクを表示-->
+            {% if request.user.is_superuser %}
+            <a class="navbar-brand" href="{% url 'admin:index' %}">管理者用画面</a>
+            {% endif %}
         </div>
         <form method="post" action="{% url 'sampleblog:logout' %}">
             {% csrf_token %}
@@ -29,6 +31,7 @@
     </div>
 </nav>
 <br/>
+
 <div class="container">
     <header>
         <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-dark rounded shadow-sm">
