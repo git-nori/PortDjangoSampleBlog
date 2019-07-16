@@ -16,7 +16,7 @@ class Article(models.Model):
     """記事"""
     title = models.CharField('タイトル', max_length=255)
     content = models.TextField('本文', blank=False)
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)  # 外部キーとしてCustomUserインスタンスを追加
+    user = models.ForeignKey(CustomUser, verbose_name='ユーザー', on_delete=models.CASCADE)  # 外部キーとしてCustomUserインスタンスを追加
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
