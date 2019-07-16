@@ -6,4 +6,4 @@ class ArticleForm(ModelForm):
     class Meta:
         """記事のフォーム"""
         model = Article
-        fields = ('title', 'content')
+        fields = ('title', 'content', 'user', )
