@@ -6,10 +6,10 @@ from django.contrib.auth.models import AbstractUser
 class CustomUser(AbstractUser):
     GENDER_TYPE = [
         (True, 'man'),
-        (False, 'woman')
+        (False, 'woman'),
     ]
-    image = models.ImageField(upload_to='sampleblog/images', blank=True)  # ユーザー画像のフィールドを追加
-    gender = models.BooleanField(choices=GENDER_TYPE, blank=False)  # 性別のフィールドを追加
+    image = models.ImageField(upload_to='sampleblog/images', blank=True, null=True)  # ユーザー画像のフィールドを追加
+    gender = models.BooleanField(choices=GENDER_TYPE, blank=True, null=True)  # 性別のフィールドを追加
 
 
 class Article(models.Model):
