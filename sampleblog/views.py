@@ -2,14 +2,30 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Article, CustomUser
 from .forms import ArticleForm
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
+def paginate_queryset(request, queryset, count):
+    """引数で渡されたquerysetの中でcountで指定された件数分のPageオブジェクトを返す"""
+    paginator = Paginator(queryset, count)  # 1ページで表示する件数分をcountで定義
+    page_num = request.GET.get('page')
+    try:
+        page_obj = paginator.page(page_num)
+    except (PageNotAnInteger, EmptyPage):  # 存在しないページ or 空のページの場合
+        page_obj = paginator.page(1)
+
+    return page_obj
+
+
 def home(request):
     """ホーム画面"""
-    articles = Article.objects.all().order_by('-updated_at')
+    ARTICLES_CNT_PER_PAGE = 3  # 1ページで表示をする記事件数
 
-    return render(request, 'sampleblog/home.html', {'articles': articles})
+    articles = Article.objects.all().order_by('-updated_at')
+    articles_per_page = paginate_queryset(request, articles, ARTICLES_CNT_PER_PAGE)
+
+    return render(request, 'sampleblog/home.html', {'articles_per_page': articles_per_page, 'articles': articles})
 
 
 def article_detail(request, pk):
