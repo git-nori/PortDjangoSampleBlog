@@ -14,4 +14,5 @@ urlpatterns = [
     path('user_edit/', views.user_edit, name='user_edit'),  # ユーザー編集画面
     path('login/', authen_views.LoginView.as_view(template_name='sampleblog/login.html'), name='login'),  # ログイン画面(ログイン画面に使用するテンプレートも設定)
     path('logout/', authen_views.LogoutView.as_view(), name='logout'),  # ログアウト画面
+    path('signup/', views.signup, name='signup'),  # ユーザー登録画面
 ]

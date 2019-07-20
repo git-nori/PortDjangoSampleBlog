@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Article, CustomUser
-from .forms import ArticleForm, CustomUserUpdateForm
+from .forms import ArticleForm, CustomUserUpdateForm, CustomUserCreateForm
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -107,3 +107,17 @@ def user_edit(request):
         form = CustomUserUpdateForm(instance=user)
 
     return render(request, 'sampleblog/user_edit.html', {'form': form})
+
+
+def signup(request):
+    """ユーザー登録画面"""
+    if request.method == 'POST':
+        form = CustomUserCreateForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            return redirect('sampleblog:login')
+    else:
+        form = CustomUserCreateForm()
+
+    return render(request, 'sampleblog/signup.html', {'form': form})
