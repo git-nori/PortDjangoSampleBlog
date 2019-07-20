@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Article, CustomUser
-from .forms import ArticleForm
+from .forms import ArticleForm, CustomUserUpdateForm
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -85,3 +85,25 @@ def user_detail(request, pk):
     articles = user.article_set.all().order_by('-created_at')  # userに紐づいたarticleインスタンスを全て取得
 
     return render(request, 'sampleblog/user_detail.html', {'user': user, 'articles': articles})
+
+
+def user_edit(request):
+    """ユーザー編集画面"""
+    user = request.user
+    if request.method == 'POST':
+        if 'update' in request.POST:  # Updateボタン押下時の処理
+            form = CustomUserUpdateForm(request.POST, request.FILES, instance=user)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Update Complete")
+
+            return redirect('sampleblog:user_detail', pk=user.id)
+        if 'delete' in request.POST:  # Deleteボタン押下時の処理
+            user.delete()
+            messages.success(request, "Delete Complete")
+
+            return redirect('sampleblog:login')
+    else:
+        form = CustomUserUpdateForm(instance=user)
+
+    return render(request, 'sampleblog/user_edit.html', {'form': form})
