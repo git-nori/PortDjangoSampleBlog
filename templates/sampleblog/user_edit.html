@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}ユーザー編集画面{% endblock %}
+
+{% block header %}ユーザー編集画面{% endblock %}
+
+{% block content %}
+
+{% csrf_token%}
+<form action="{% url 'sampleblog:user_edit' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button class="btn btn-primary" type="submit" name="update">Update</button>
+    <button class="btn btn-danger" type="submit" name="delete" onclick="return confirm('本当に削除してもよろしいでしょうか?')">Delete</button>
+</form>
+{% endblock %}
