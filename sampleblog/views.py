@@ -3,6 +3,7 @@ from .models import Article, CustomUser
 from .forms import ArticleForm, CustomUserUpdateForm, CustomUserCreateForm
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -18,6 +19,7 @@ def paginate_queryset(request, queryset, count):
     return page_obj
 
 
+@login_required
 def home(request):
     """ホーム画面"""
     ARTICLES_CNT_PER_PAGE = 3  # 1ページで表示をする記事件数
@@ -28,6 +30,7 @@ def home(request):
     return render(request, 'sampleblog/home.html', {'articles_per_page': articles_per_page, 'articles': articles})
 
 
+@login_required
 def article_detail(request, pk):
     """記事詳細画面"""
     article = get_object_or_404(Article, pk=pk)
@@ -35,6 +38,7 @@ def article_detail(request, pk):
     return render(request, 'sampleblog/article_detail.html', {'article': article})
 
 
+@login_required
 def article_edit(request, pk):
     """記事編集画面"""
     article = get_object_or_404(Article, pk=pk)
@@ -57,6 +61,7 @@ def article_edit(request, pk):
     return render(request, 'sampleblog/article_edit.html', {'article': article, 'form': form})
 
 
+@login_required
 def article_add(request):
     """記事追加画面"""
     if request.method == 'POST':
@@ -72,6 +77,7 @@ def article_add(request):
     return render(request, 'sampleblog/article_add.html', {'form': form})
 
 
+@login_required
 def user_list(request):
     """ユーザー一覧画面"""
     users = CustomUser.objects.all().order_by('id')
@@ -79,6 +85,7 @@ def user_list(request):
     return render(request, 'sampleblog/user_list.html', {'users': users})
 
 
+@login_required
 def user_detail(request, pk):
     """ユーザー詳細画面"""
     user = get_object_or_404(CustomUser, pk=pk)
@@ -87,6 +94,7 @@ def user_detail(request, pk):
     return render(request, 'sampleblog/user_detail.html', {'user': user, 'articles': articles})
 
 
+@login_required
 def user_edit(request):
     """ユーザー編集画面"""
     user = request.user
