@@ -13,10 +13,12 @@
 
 <p>記事ID: {{article.id}}</p>
 <p>投稿ユーザー: <a href="{% url 'sampleblog:user_detail' article.user.id %}">{{ article.user.username }}</a></p>
+{% if article.user == request.user %}
 <a href="{% url 'sampleblog:article_edit' article.id %}">
     <button type="submit" class="btn btn-primary" value="edit">edit</button>
 </a>
 <br/><br/>
+{% endif %}
 {% if messages %}
 {% for result_msg in messages %}
 <div class="alert alert-secondary" role="alert">

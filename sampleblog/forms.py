@@ -22,3 +22,4 @@ class ArticleForm(ModelForm):
         """記事のフォーム"""
         model = Article
         fields = ('title', 'content', 'user',)
+        exclude = ('user',)  # ユーザー情報は、投稿するユーザー(ログインしているユーザー)の情報を格納する

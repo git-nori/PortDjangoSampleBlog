@@ -42,6 +42,9 @@ def article_detail(request, pk):
 def article_edit(request, pk):
     """記事編集画面"""
     article = get_object_or_404(Article, pk=pk)
+    if article.user != request.user:  # 記事投稿者とログインユーザーが同一か判定
+
+        return redirect('sampleblog:article_detail', pk=pk)
     if request.method == 'POST':
         if 'update' in request.POST:  # Updateボタン押下時の処理
             form = ArticleForm(request.POST, instance=article)
@@ -67,7 +70,9 @@ def article_add(request):
     if request.method == 'POST':
         form = ArticleForm(request.POST)
         if form.is_valid():
-            form.save()
+            article = form.save(commit=False)
+            article.user = request.user  # 記事を投稿するユーザー情報を格納
+            article.save()
             messages.success(request, "Create Complete")
 
             return redirect('sampleblog:home')
