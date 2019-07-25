@@ -4,6 +4,9 @@ from .forms import ArticleForm, CustomUserUpdateForm, CustomUserCreateForm
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+import csv
+import datetime
 
 
 # Create your views here.
@@ -17,6 +20,22 @@ def paginate_queryset(request, queryset, count):
         page_obj = paginator.page(1)
 
     return page_obj
+
+
+def export_csv(request):
+    """引数で渡されたモデルを今日の日付でcsv出力をする"""
+    EXTENSION = ".csv"  # 拡張子を格納
+
+    today = datetime.date.today().strftime("%y%m%d")
+    file_name = "articles_" + today + EXTENSION  # csv出力ファイルのファイル名を格納
+    response = HttpResponse(content_type='text/csv')  # 出力形式をcsvと定義
+    response['Content-Disposition'] = f'attachment; filename="{file_name}"'  # csvファイル名を設定
+    writer = csv.writer(response)
+    articles = Article.objects.all()
+    for article in articles:
+        writer.writerow([article.pk, article.title, article.user.username])
+
+    return response
 
 
 @login_required
@@ -53,9 +72,9 @@ def article_edit(request, pk):
                 messages.success(request, "Update Complete")
 
             return redirect('sampleblog:article_detail', pk=pk)
-        if 'delete' in request.POST:  # Deleteボタン押下時の処理
-            article.delete()
-            messages.success(request, "Delete Complete")
+        if 'darticlete' in request.POST:  # Darticleteボタン押下時の処理
+            article.darticlete()
+            messages.success(request, "Darticlete Complete")
 
             return redirect('sampleblog:home')
     else:
@@ -111,9 +130,9 @@ def user_edit(request):
                 messages.success(request, "Update Complete")
 
             return redirect('sampleblog:user_detail', pk=user.id)
-        if 'delete' in request.POST:  # Deleteボタン押下時の処理
-            user.delete()
-            messages.success(request, "Delete Complete")
+        if 'darticlete' in request.POST:  # Darticleteボタン押下時の処理
+            user.darticlete()
+            messages.success(request, "Darticlete Complete")
 
             return redirect('sampleblog:login')
     else:
