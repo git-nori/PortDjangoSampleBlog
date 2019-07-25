@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>{% block title %}{% endblock %}</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+</head>
+
+<body>
+<nav class="navbar navbar-dark navbar-fixed-top bg-dark">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">SampleBlog</a>
+            <a class="navbar-brand" href="{% url 'sampleblog:home' %}">ホーム</a>
+            <a class="navbar-brand" href="{% url 'sampleblog:article_add' %}">新規投稿</a>
+            <a class="navbar-brand" href="{% url 'sampleblog:user_list' %}">ユーザー一覧</a>
+            <!--ログインをしているユーザーが管理者権限を持っている場合はリンクを表示-->
+            {% if request.user.is_superuser %}
+            <a class="navbar-brand" href="{% url 'admin:index' %}">管理者用画面</a>
+            {% endif %}
+        </div>
+        <form method="post" action="{% url 'sampleblog:logout' %}">
+            {% csrf_token %}
+            <button class="btn btn-link pull-right navbar-brand" type="submit">Logout</button>
+        </form>
+    </div>
+</nav>
+<br/>
+
+<div class="container">
+    <header>
+        <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-dark rounded shadow-sm">
+            <div class="lh-100">
+                <h4 class="mb-0 text-white lh-100">{% block header %}{% endblock %}</h4>
+            </div>
+        </div>
+    </header>
+    <div class="starter-template">
+        {% block content %}{% endblock %}
+    </div>
+</div>
+</body>
+</html>

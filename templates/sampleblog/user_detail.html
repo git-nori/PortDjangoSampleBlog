@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ユーザー詳細画面{% endblock %}
+
+{% block header %}ユーザー詳細画面{% endblock %}
+
+{% block content %}
+<!--ユーザー更新結果を表示-->
+{% if messages %}
+{% for result_msg in messages %}
+<div class="alert alert-secondary" role="alert">
+    <strong><label>{{ result_msg }}</label></strong>
+</div>
+{% endfor %}
+{% endif %}
+<section class="fdb-block">
+    <div class="container">
+        <div class="row justify-content-end">
+            <div class="col-12 col-md-4">
+                {% if user.image %}
+                <img src="{{ user.image.url }}" alt="" width="300px" height="200px">
+                {% else %}
+                <img src="{% static 'sampleblog/images/default.jpeg' %}" width="300px" height="200px">
+                {% endif %}
+            </div>
+            <div class="col-12 col-md-8">
+                <h1 class="text-center">{{ user.username }}</h1>
+                <table class="lead">
+                    <tr>
+                        <th>userid:</th>
+                        <td>{{ user.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>gender:</th>
+                        <td>{% if user.gender %} men {% else %} women {% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>created_at:</th>
+                        <td>{{ user.date_joined|date:"Y-m-j H:i:s" }}</td>
+                    </tr>
+                    <tr>
+                        <th>last_login:</th>
+                        <td>{{ user.last_login|date:"Y-m-j H:i:s" }}</td>
+                    </tr>
+                </table>
+                <!--ログインユーザーと表示しているユーザーが合致したら編集画面へのリンクを表示-->
+                {% if request.user.id == user.id %}
+                <label><a href="{% url 'sampleblog:user_edit' %}">プロフィールを編集する</a></label>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+<hr/>
+
+<!--base_article_list.htmlの内容を継承-->
+{% include './base_article_list.html' %}
+
+{% endblock %}
+

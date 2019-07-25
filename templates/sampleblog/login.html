@@ -1,0 +1,15 @@
+{% extends 'login_signup_base.html' %}
+
+{% block title %}ログイン画面{% endblock %}
+
+{% block header %}Login{% endblock %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <hr/>
+    <button type="submit" class="btn btn-primary" value="Sign in">Sign in</button>
+    <span class="mt-0 mb-1 ml-2 mr-3"><a href="{% url 'sampleblog:signup' %}">Sign up</a></span>
+</form>
+{% endblock %}

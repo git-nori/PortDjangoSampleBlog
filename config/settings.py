@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrap4',
+    'sampleblog',
+    'django_cleanup'  # レコードの削除、更新時にファイルも削除するよう設定
 ]
 
 MIDDLEWARE = [
@@ -54,7 +57,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # ベースディレクトリ直下の「templates」を読むよう設定
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -63,6 +66,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'builtins': [
+                'bootstrap4.templatetags.bootstrap4',  # templateファイルでのbootstrap4を記述なしに自動で読み込むよう設定
+            ]
         },
     },
 ]
@@ -77,6 +83,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ATOMIC_REQUESTS': True,  # トランザクションの設定
     }
 }
 
@@ -113,8 +120,19 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Login, Logout setting
+
+LOGIN_URL = 'sampleblog:login'  # ログイン画面に使用するURL
+LOGIN_REDIRECT_URL = 'sampleblog:home'  # ログイン成功後に遷移するURL
+LOGOUT_REDIRECT_URL = 'sampleblog:login'  # ログアウト後に遷移するURL
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # ディレクトリ構成の変更による追加
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+AUTH_USER_MODEL = 'sampleblog.CustomUser'  # カスタムUserを使用するよう設定
