@@ -8,8 +8,8 @@ class CustomUser(AbstractUser):
         (True, 'man'),
         (False, 'woman'),
     ]
-    image = models.ImageField(upload_to='sampleblog/images', blank=True, null=True)  # ユーザー画像のフィールドを追加
-    gender = models.BooleanField(choices=GENDER_TYPE, blank=True, null=True)  # 性別のフィールドを追加
+    image = models.ImageField('ユーザー画像', upload_to='sampleblog/images', blank=True, null=True)  # ユーザー画像のフィールドを追加
+    gender = models.BooleanField('性別', choices=GENDER_TYPE, blank=True, null=True)  # 性別のフィールドを追加
 
 
 class Article(models.Model):

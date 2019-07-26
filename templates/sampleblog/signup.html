@@ -5,7 +5,7 @@
 {% block header %}Sign Up{% endblock %}
 
 {% block content %}
-<form action="{% url 'sampleblog:signup' %}" method="post">
+<form action="{% url 'sampleblog:signup' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% bootstrap_form form %}
     <button type="submit" class="btn btn-primary">Sign up</button>

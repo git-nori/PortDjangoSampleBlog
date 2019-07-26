@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap4',
-    'sampleblog',
+    'sampleblog.apps.SampleblogConfig',  # 自動認識されるようサブクラスを追加
     'django_cleanup'  # レコードの削除、更新時にファイルも削除するよう設定
 ]
 
