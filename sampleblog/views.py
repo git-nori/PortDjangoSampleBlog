@@ -72,9 +72,9 @@ def article_edit(request, pk):
                 messages.success(request, "Update Complete")
 
             return redirect('sampleblog:article_detail', pk=pk)
-        if 'darticlete' in request.POST:  # Darticleteボタン押下時の処理
-            article.darticlete()
-            messages.success(request, "Darticlete Complete")
+        if 'delete' in request.POST:  # deleteボタン押下時の処理
+            article.delete()
+            messages.success(request, "delete Complete")
 
             return redirect('sampleblog:home')
     else:
@@ -130,9 +130,9 @@ def user_edit(request):
                 messages.success(request, "Update Complete")
 
             return redirect('sampleblog:user_detail', pk=user.id)
-        if 'darticlete' in request.POST:  # Darticleteボタン押下時の処理
-            user.darticlete()
-            messages.success(request, "Darticlete Complete")
+        if 'delete' in request.POST:  # Deleteボタン押下時の処理
+            user.delete()
+            messages.success(request, "Delete Complete")
 
             return redirect('sampleblog:login')
     else:
@@ -144,7 +144,7 @@ def user_edit(request):
 def signup(request):
     """ユーザー登録画面"""
     if request.method == 'POST':
-        form = CustomUserCreateForm(request.POST)
+        form = CustomUserCreateForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
 
