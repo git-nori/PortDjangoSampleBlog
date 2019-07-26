@@ -8,7 +8,8 @@
 <h3>{{ article.title }}</h3>
 <br/>
 
-<p>{{ article.content }}</p>
+<!--プレーンテキストの改行を<br />に変換-->
+<p>{{ article.content | linebreaksbr }}</p>
 <br/><br/>
 
 <p>記事ID: {{article.id}}</p>
